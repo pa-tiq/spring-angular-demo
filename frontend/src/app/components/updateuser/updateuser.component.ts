@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import {
+  AfterContentChecked,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { User } from 'src/app/User';
@@ -9,21 +14,26 @@ import { User } from 'src/app/User';
   templateUrl: './updateuser.component.html',
   styleUrls: ['./updateuser.component.css'],
 })
-export class UpdateuserComponent implements OnInit {
+export class UpdateuserComponent implements OnInit, AfterContentChecked {
   user?: User;
   data: any;
 
   constructor(
     private service: AppService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private readonly changeDetector: ChangeDetectorRef
   ) {}
+
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
+  }
 
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
     this.service.getUserById(id).subscribe((data) => {
       this.user = data;
-      console.log(this.user);
+      //console.log(this.user);
     });
   }
 
@@ -35,7 +45,8 @@ export class UpdateuserComponent implements OnInit {
 
   submit() {
     this.data = this.form.value;
-    console.log(this.data);
+    this.data.name = this.user?.name;
+    //console.log(this.data);
 
     this.service.updateUser(this.user?.id, this.data).subscribe((data) => {
       console.log(data);

@@ -1,74 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add User</title>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-            </ul>
-          </div>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+          </ul>
         </div>
-      </nav>
+      </div>
+    </nav>
 
-    
     <!--Main Content-->
     <div class="my-5">
-      <div class="mx-auto w-25 " style="max-width:100%;">
+      <div class="mx-auto w-25" style="max-width: 100%">
         <h2 class="text-center mb-3">Update User</h2>
-        <form  [formGroup]="form" (ngSubmit)="submit()" >
-
+        <form [formGroup]="form" (ngSubmit)="submit()" *ngIf="user">
           <!--Email-->
-          <div class="row">
+          <div class="row" *ngIf="user.email">
             <div class="col-md-12 form-group mb-3">
               <label for="email" class="form-label">Email</label>
-              <input id="email"  formControlName="email" type="email" name="email" class="form-control" placeholder="email" required>
+              <input
+                id="email"
+                formControlName="email"
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="email"
+                [(ngModel)]="user.email"
+                required
+              />
             </div>
           </div>
 
-          
           <!--PNo-->
-          <div class="row">
+          <div class="row" *ngIf="user.password">
             <div class="col-md-12 form-group mb-3">
               <label for="password" class="form-label">Password</label>
-              <input id="password" type="text" formControlName="password" name="password" class="form-control" placeholder="Password" required>
-            </div>
-          </div>
-         
-            
-          <!--PNo-->
-          <div class="row">
-            <div class="col-md-12 form-group mb-3">
-              <label for="comment" class="form-label">Comment</label>
-              <textarea id="comment" formControlName="comment" type="text" name="comment"  class="form-control" placeholder="Your comment" rows="3" required></textarea>
-            </div>
-          </div>
-         
-          <div class="row">
-            <div class="col-md-12 form-group">
-              <button [disabled]="!form.valid" class="btn btn-primary w-100" type="submit" value="Submit">Button</button>
+              <input
+                id="password"
+                type="text"
+                formControlName="password"
+                name="password"
+                class="form-control"
+                placeholder="Password"
+                [(ngModel)]="user.password"
+                required
+              />
             </div>
           </div>
 
-          <div>
-            
+          <!--PNo-->
+          <div class="row" *ngIf="user.comment">
+            <div class="col-md-12 form-group mb-3">
+              <label for="comment" class="form-label">Comment</label>
+              <textarea
+                id="comment"
+                formControlName="comment"
+                type="text"
+                name="comment"
+                class="form-control"
+                placeholder="Your comment"
+                rows="3"
+                [(ngModel)]="user.comment"
+                required
+              ></textarea>
+            </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <button
+                [disabled]="!form.valid"
+                class="btn btn-primary w-100"
+                type="submit"
+                value="Submit"
+              >
+                Button
+              </button>
+            </div>
+          </div>
+
+          <div></div>
         </form>
-  
       </div>
     </div>
-    
-</body>
+  </body>
 </html>
